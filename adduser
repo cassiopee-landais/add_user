@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+for i in `seq 1 363`;
+do
+i `printf "%03d\n" $i`;
+pass=user
+mkdir /srv/ftp/user_$i
+echo $pass | ftpasswd --passwd --name=user_$i --uid=2"$i" --gid=2000 --file=/etc/proftpd/ftpd.passwd --home=/srv/ftp/user_$i --shell=/bin/false --stdin --gid=2000
+chown user_$i /srv/ftp/user_$i
+echo user_$i "$pass" >> mdp.txt
+
+done
